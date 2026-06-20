@@ -31,32 +31,18 @@
         </div>
     </nav>
     <section class="gallery-section">
-        <h2>Our Activities</h2>
 
         <div class="slider">
-            <div class="slides">
-                <img src="images/event1.webp" alt="Event 1">
-                <img src="images/event2.webp" alt="Event 2">
-                <img src="images/event3.webp" alt="Event 3">
-                <img src="images/event4.webp" alt="Event 4">
-            </div>
+
+            <button class="prev" onclick="changeSlide(-1)">❮</button>
+
+            <img id="slide" src="images/event1.jpeg" alt="NGO Event">
+
+            <button class="next" onclick="changeSlide(1)">❯</button>
+
         </div>
     </section>
 
-    <script src="script.js">
-        const images = [
-            "event1.webp",
-            "event2.webp",
-            "event3.webp",
-            "event4.webp"
-        ];
-
-        let index = 0;
-
-        setInterval(() => {
-            index = (index + 1) % images.length;
-            document.getElementById("slide").src = images[index];
-        }, 3000);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

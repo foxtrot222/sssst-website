@@ -10,13 +10,12 @@
     <nav class="navbar">
         <div class="navbar-container">
 
-	  <div class="navbar-logo">
-	    <a href="index.html">
-              <img src="favicon.ico" alt="Logo" class="logo-icon" width="50" height="50"> 
-              <span>Sanskruti Samaj Seva<br>Sansthan Trust</span>
-	    </a>
-	  </div>
-	  
+            <div class="navbar-logo">
+                <a href="index.html"><img src="favicon.ico" alt="Logo" class="logo-icon" width="50" height="50">
+                    <span>Sanskruti Samaj Seva<br>Sansthan Trust</span>
+                </a>
+            </div>
+
             <ul class="navbar-links">
                 <li class="nav-item">
                     <a href="index.html" class="nav-link">Home</a>
@@ -31,6 +30,18 @@
 
         </div>
     </nav>
+    <section class="gallery-section">
+
+        <div class="slider">
+
+            <button class="prev" onclick="changeSlide(-1)">❮</button>
+
+            <img id="slide" src="images/event1.jpeg" alt="NGO Event">
+
+            <button class="next" onclick="changeSlide(1)">❯</button>
+
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>

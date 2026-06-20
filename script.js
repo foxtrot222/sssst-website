@@ -1,37 +1,86 @@
-const images = [
-        "images/event1.jpeg",
-        "images/event2.jpeg",
-        "images/event3.jpeg",
-        "images/event4.jpeg",
-        "images/event5.jpeg",
-        "images/event6.jpeg"
-    ];
+// Array to hold our successfully found images
+let images = [];
+let currentIndex = 0;
+const imgElement = document.getElementById("slide");
 
-    let current = 0;
+// The number we start checking at (1.something)
+let checkIndex = 1;
 
-    const slide = document.getElementById("slide");
+// The file extensions we want to check for each number
+const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+let extIndex = 0; 
 
-    function showImage(index) {
-        slide.style.opacity = 0;
+// --- Auto-Slide Timer Variables ---
+let slideTimer;
+const slideDelay = 4000; 
 
-        setTimeout(() => {
-            slide.src = images[index];
-            slide.style.opacity = 1;
-        }, 300);
-    }
+function findImages() {
+    let img = new Image();
+    
+    let currentExtension = extensions[extIndex];
+    img.src = `images/${checkIndex}.${currentExtension}`;
 
-    function changeSlide(direction) {
-        current += direction;
+    img.onload = function() {
+        images.push(img.src); 
+        checkIndex++;         
+        extIndex = 0;         
+        findImages();         
+    };
 
-        if (current >= images.length)
-            current = 0;
+    img.onerror = function() {
+        extIndex++; 
 
-        if (current < 0)
-            current = images.length - 1;
+        if (extIndex < extensions.length) {
+            findImages(); 
+        } else {
+            if (images.length > 0) {
+                imgElement.src = images[0]; 
+                startAutoSlide(); 
+            } else {
+                console.log("No images found. Make sure they are numbered (1, 2, 3...) inside the images folder.");
+            }
+        }
+    };
+}
 
-        showImage(current);
-    }
+// Function to handle the Next and Previous buttons
+function changeSlide(direction) {
+    if (images.length === 0) return; 
 
-    setInterval(() => {
-        changeSlide(1);
-    }, 5000);
+    // 1. Trigger the fade-out effect
+    imgElement.style.opacity = 0;
+
+    // 2. Wait 300 milliseconds for it to fade, then swap the image
+    setTimeout(function() {
+        currentIndex += direction;
+
+        if (currentIndex < 0) {
+            currentIndex = images.length - 1;
+        } else if (currentIndex >= images.length) {
+            currentIndex = 0;
+        }
+
+        imgElement.src = images[currentIndex];
+        
+        // 3. Trigger the fade-in effect
+        imgElement.style.opacity = 1;
+
+    }, 300); // This delay creates the smooth fade effect
+
+    resetAutoSlide();
+}
+
+// --- Auto-Slide Functions ---
+function startAutoSlide() {
+    slideTimer = setInterval(function() {
+        changeSlide(1); 
+    }, slideDelay);
+}
+
+function resetAutoSlide() {
+    clearInterval(slideTimer);
+    startAutoSlide();
+}
+
+// Start the auto-detect process as soon as the file loads
+findImages();

@@ -17,25 +17,24 @@ body {
 ========================= */
 
 .navbar {
-    width: 100%;
-    background: #ffffff;
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 15px 8%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    height: 80px;
 }
+
 
 /* NGO Logo */
 
-.logo {
-    font-size: 28px;
-    font-weight: bold;
-    color: #2E8B57;
-    text-decoration: none;
+.navbar-logo img {
+    position: absolute;
+    left: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #2E8B57;
 }
 
 /* Navigation Links */
@@ -47,11 +46,11 @@ body {
     align-items: center;
 }
 
-.nav-links li {
+.navbar-links li {
     display: inline-block;
 }
 
-.nav-links a {
+.navbar-links a {
     text-decoration: none;
     color: #333;
     font-size: 17px;
@@ -62,11 +61,11 @@ body {
 
 /* Hover Effect */
 
-.nav-links a:hover {
+.navbar-links a:hover {
     color: #2E8B57;
 }
 
-.nav-links a::after {
+.navbar-links a::after {
     content: "";
     position: absolute;
     width: 0;
@@ -77,7 +76,7 @@ body {
     transition: 0.3s;
 }
 
-.nav-links a:hover::after {
+.navbar-links a:hover::after {
     width: 100%;
 }
 
@@ -114,7 +113,7 @@ body {
         display: block;
     }
 
-    .nav-links {
+    .navbar-links {
         position: absolute;
         top: 75px;
         left: 0;
@@ -127,11 +126,11 @@ body {
         box-shadow: 0 5px 10px rgba(0,0,0,0.1);
     }
 
-    .nav-links.active {
+    .navbar-links.active {
         display: flex;
     }
 
-    .nav-links li {
+    .navbar-links li {
         margin: 12px 0;
     }
 

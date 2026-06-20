@@ -10,13 +10,12 @@
     <nav class="navbar">
         <div class="navbar-container">
 
-	  <div class="navbar-logo">
-	    <a href="index.html">
-              <img src="favicon.ico" alt="Logo" class="logo-icon" width="50" height="50"> 
-              <span>Sanskruti Samaj Seva<br>Sansthan Trust</span>
-	    </a>
-	  </div>
-	  
+            <div class="navbar-logo">
+                <a href="index.html"><img src="favicon.ico" alt="Logo" class="logo-icon" width="50" height="50">
+                    <span>Sanskruti Samaj Seva<br>Sansthan Trust</span>
+                </a>
+            </div>
+
             <ul class="navbar-links">
                 <li class="nav-item">
                     <a href="index.html" class="nav-link">Home</a>
@@ -31,7 +30,33 @@
 
         </div>
     </nav>
+    <section class="gallery-section">
+        <h2>Our Activities</h2>
 
-    <script src="script.js"></script>
+        <div class="slider">
+            <div class="slides">
+                <img src="images/event1.webp" alt="Event 1">
+                <img src="images/event2.webp" alt="Event 2">
+                <img src="images/event3.webp" alt="Event 3">
+                <img src="images/event4.webp" alt="Event 4">
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js">
+        const images = [
+            "event1.webp",
+            "event2.webp",
+            "event3.webp",
+            "event4.webp"
+        ];
+
+        let index = 0;
+
+        setInterval(() => {
+            index = (index + 1) % images.length;
+            document.getElementById("slide").src = images[index];
+        }, 3000);
+    </script>
 </body>
 </html>

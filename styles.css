@@ -158,3 +158,101 @@ body {
     right: 15px;
     padding-left: 4px;
 }
+
+/* =========================
+   Contact Page Styles
+========================= */
+
+/* Left-aligned Page Title with added top and left spacing */
+.page-title {
+    color: #FF8C00;
+    margin-top: 30px; 
+    margin-bottom: 15px; 
+    margin-left: 15px; /* Added left padding so it doesn't touch the edge */
+    font-size: 36px; 
+    text-align: left; 
+}
+
+/* Left-aligned Intro Paragraph */
+.contact-intro {
+    text-align: left; 
+    margin-bottom: 40px; 
+    margin-left: 15px; /* Matched the title's padding for perfect alignment */
+    color: #555;
+    font-size: 18px;
+    max-width: 800px; 
+}
+
+/* The main container holding both sides */
+.contact-wrapper {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 40px;
+    background: #ffffff;
+    padding: 50px; 
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Left Side: Text & Icons --- */
+.contact-details {
+    flex: 1; 
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 35px; /* Increased the gap so the details don't feel clustered */
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+/* The Icons */
+.contact-item i {
+    font-size: 24px;
+    color: #FF8C00;
+    margin-top: 2px;
+    width: 30px; 
+    text-align: center;
+}
+
+.contact-item div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.contact-item h3 {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+}
+
+.contact-item p {
+    font-size: 16px;
+    color: #666;
+    margin: 0; 
+    line-height: 1.5;
+}
+
+/* The Links */
+.contact-item a {
+    color: #FF8C00;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.contact-item a:hover {
+    text-decoration: underline;
+}
+
+/* --- Right Side: Google Map --- */
+.contact-map {
+    flex: 1.5; 
+    min-width: 300px;
+    border-radius: 10px;
+    overflow: hidden; 
+    min-height: 350px;
+}

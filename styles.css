@@ -21,7 +21,7 @@ body {
 .navbar {
     width: 100%;
     background: #ffffff;
-    padding: 15px 8%;
+    padding: 10px 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
@@ -31,10 +31,10 @@ body {
 
 .navbar-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
+
 .navbar-links a.active {
     color: #FF8C00;
     font-weight: bold;
@@ -48,12 +48,11 @@ body {
 .navbar-logo a {
     display: flex;
     align-items: center;
-    gap: 20px; /* Increased from 10px to add more space between logo and title */
+    gap: 15px;
     font-size: 20px;
     font-weight: bold;
     color: #FF8C00;
     text-decoration: none;
-    line-height: 1.2;
 }
 
 /* Logo Image */
@@ -70,6 +69,8 @@ body {
     display: flex;
     gap: 30px;
     align-items: center;
+
+    margin-left: auto;
 }
 
 .navbar-links a {

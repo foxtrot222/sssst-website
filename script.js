@@ -1,48 +1,69 @@
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("navbar.html")
-        .then(response => response.text())
-        .then(data => {
 
-            document.getElementById("navbar").innerHTML = data;
+    Promise.all([
+        fetch("navbar.html").then(response => response.text()),
+        fetch("donate-modal.html").then(response => response.text())
+    ])
+    .then(([navbarData, modalData]) => {
 
-            // Donation Popup Modal
-            const donateBtn = document.getElementById("donateBtn");
-            const modal = document.getElementById("donationModal");
-            const closeBtn = document.querySelector(".close-btn");
+        // Load common components
+        document.getElementById("navbar").innerHTML = navbarData;
+        document.getElementById("donate-modal").innerHTML = modalData;
 
-            if (donateBtn && modal && closeBtn) {
+        // Setup donation modal
+        setupDonateModal();
 
-                donateBtn.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    modal.style.display = "flex";
-                });
+        // Highlight current page
+        highlightCurrentPage();
 
-                closeBtn.addEventListener("click", function() {
-                    modal.style.display = "none";
-                });
+    })
+    .catch(error => console.error("Error loading components:", error));
 
-                window.addEventListener("click", function(e) {
-                    if (e.target === modal) {
-                        modal.style.display = "none";
-                    }
-                });
-            }
-
-            // Highlight current page
-            const currentPage = window.location.pathname.split("/").pop() || "index.html";
-
-            const navLinks = document.querySelectorAll(".nav-link");
-
-            navLinks.forEach(link => {
-                const href = link.getAttribute("href");
-
-                if (href === currentPage) {
-                    link.classList.add("active");
-                }
-            });
-        })
-        .catch(error => console.error("Error loading navbar:", error));
 });
+
+function setupDonateModal() {
+
+    const donateBtn = document.getElementById("donateBtn");
+    const modal = document.getElementById("donationModal");
+    const closeBtn = document.querySelector(".close-btn");
+
+    if (!donateBtn || !modal || !closeBtn) {
+        console.error("Donation modal elements not found.");
+        return;
+    }
+
+    donateBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        modal.style.display = "flex";
+    });
+
+    closeBtn.addEventListener("click", function() {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener("click", function(e) {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+}
+
+function highlightCurrentPage() {
+
+    const currentPage =
+        window.location.pathname.split("/").pop() || "index.html";
+
+    const navLinks = document.querySelectorAll(".nav-link");
+
+    navLinks.forEach(link => {
+
+        const href = link.getAttribute("href");
+
+        if (href === currentPage) {
+            link.classList.add("active");
+        }
+    });
+}
 
 // Array to hold our successfully found images
 let images = [];

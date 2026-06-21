@@ -1,3 +1,49 @@
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("navbar.html")
+        .then(response => response.text())
+        .then(data => {
+
+            document.getElementById("navbar").innerHTML = data;
+
+            // Donation Popup Modal
+            const donateBtn = document.getElementById("donateBtn");
+            const modal = document.getElementById("donationModal");
+            const closeBtn = document.querySelector(".close-btn");
+
+            if (donateBtn && modal && closeBtn) {
+
+                donateBtn.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    modal.style.display = "flex";
+                });
+
+                closeBtn.addEventListener("click", function() {
+                    modal.style.display = "none";
+                });
+
+                window.addEventListener("click", function(e) {
+                    if (e.target === modal) {
+                        modal.style.display = "none";
+                    }
+                });
+            }
+
+            // Highlight current page
+            const currentPage = window.location.pathname.split("/").pop() || "index.html";
+
+            const navLinks = document.querySelectorAll(".nav-link");
+
+            navLinks.forEach(link => {
+                const href = link.getAttribute("href");
+
+                if (href === currentPage) {
+                    link.classList.add("active");
+                }
+            });
+        })
+        .catch(error => console.error("Error loading navbar:", error));
+});
+
 // Array to hold our successfully found images
 let images = [];
 let currentIndex = 0;

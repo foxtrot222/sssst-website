@@ -22,6 +22,13 @@ function findImages() {
 
     img.onload = function() {
         images.push(img.src); 
+        
+        // NEW: If this is the very first image found, display it immediately!
+        if (images.length === 1) {
+            imgElement.src = images[0];
+            imgElement.style.opacity = 1; // Fade it in
+        }
+
         checkIndex++;         
         extIndex = 0;         
         findImages();         
@@ -33,8 +40,9 @@ function findImages() {
         if (extIndex < extensions.length) {
             findImages(); 
         } else {
+            // We reached the end of the gallery
             if (images.length > 0) {
-                imgElement.src = images[0]; 
+                // The first image is already showing, so just start the timer
                 startAutoSlide(); 
             } else {
                 console.log("No images found. Make sure they are numbered (1, 2, 3...) inside the images folder.");
@@ -65,7 +73,7 @@ function changeSlide(direction) {
         // 3. Trigger the fade-in effect
         imgElement.style.opacity = 1;
 
-    }, 300); // This delay creates the smooth fade effect
+    }, 300);
 
     resetAutoSlide();
 }

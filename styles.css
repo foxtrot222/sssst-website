@@ -168,16 +168,21 @@ body {
     color: #FF8C00;
     margin-top: 30px; 
     margin-bottom: 15px; 
-    margin-left: 15px; /* Added left padding so it doesn't touch the edge */
+    margin-left: 40px; 
     font-size: 36px; 
     text-align: left; 
+}
+
+/* NEW: Adds specific spacing between the icon and the text */
+.page-title i {
+    margin-right: 6px; 
 }
 
 /* Left-aligned Intro Paragraph */
 .contact-intro {
     text-align: left; 
     margin-bottom: 40px; 
-    margin-left: 15px; /* Matched the title's padding for perfect alignment */
+    margin-left: 40px; /* Matched the title's new margin */
     color: #555;
     font-size: 18px;
     max-width: 800px; 

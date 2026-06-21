@@ -101,6 +101,16 @@ body {
     width: 100%;
 }
 
+/* Active Link */
+.nav-link.active {
+    color: #FF8C00;
+    font-weight: bold;
+}
+
+.nav-link.active::after {
+    width: 100%;
+}
+
 /* =========================
    Gallery Section Styles
 ========================= */

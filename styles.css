@@ -261,3 +261,105 @@ body {
     overflow: hidden; 
     min-height: 350px;
 }
+
+/* =========================
+   About Us Page Styles
+========================= */
+
+/* The main container holding all the sections */
+.about-page {
+    display: flex;
+    flex-direction: column;
+    gap: 80px; /* Large gap between different topics */
+}
+
+/* Centers the title and intro at the top of the page */
+.page-header .page-title,
+.page-header .contact-intro {
+    text-align: center;
+    margin-left: 0; 
+}
+.page-header .contact-intro {
+    margin: 0 auto 20px auto; 
+}
+
+/* Pulls the first section up to counter the 80px flex gap */
+.page-header {
+    margin-bottom: -65px; 
+}
+
+/* Individual Section Layout (Photo Left, Text Right) */
+.about-section {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+/* Reverses the layout (Text Left, Photo Right) */
+.about-section.reverse {
+    flex-direction: row-reverse;
+}
+
+/* --- Image Container --- */
+.about-image {
+    flex: 1; /* Takes up half the space */
+    min-width: 300px;
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    aspect-ratio: 4 / 3; /* Keeps all photos a consistent rectangular size */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* --- Text Container --- */
+.about-text {
+    flex: 1; /* Takes up the other half of the space */
+    min-width: 300px;
+}
+
+.about-text h2 {
+    color: #FF8C00;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.about-text h4 {
+    color: #333;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.about-text p {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* --- Facebook Button --- */
+.fb-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #FF8C00; /* Changed from Blue to your brand Orange */
+    color: #ffffff !important; 
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none !important;
+    font-weight: bold;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.fb-btn:hover {
+    background-color: #e67e00; /* A slightly darker orange for a clean hover effect */
+    transform: translateY(-2px); 
+}

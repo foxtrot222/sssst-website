@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Highlight current page
         highlightCurrentPage();
 
+	// Start the number counter observers
+        startCounters();
+
     })
     .catch(error => console.error("Error loading components:", error));
 
@@ -159,3 +162,44 @@ function resetAutoSlide() {
 
 // Start the auto-detect process as soon as the file loads
 findImages();
+
+
+// --- Number Counter Animation ---
+function startCounters() {
+    const counters = document.querySelectorAll('.counter');
+    
+    // Setting up the observer to watch when elements appear on screen
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = +counter.getAttribute('data-target');
+                
+                // Adjusting speed based on the size of the target number
+                const duration = 2000; // Animation lasts 2 seconds
+                const increment = target / (duration / 16); // 16ms is roughly 1 frame at 60fps
+                
+                let currentCount = 0;
+                
+                const updateCounter = () => {
+                    currentCount += increment;
+                    if (currentCount < target) {
+                        counter.innerText = Math.ceil(currentCount);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.innerText = target; // Ensure it ends exactly on the target
+                    }
+                };
+                
+                updateCounter();
+                
+                // Stop observing once the animation has run so it doesn't repeat on scroll up
+                observer.unobserve(counter);
+            }
+        });
+    }, { threshold: 0.5 }); // Starts when 50% of the section is visible
+
+    counters.forEach(counter => {
+        observer.observe(counter);
+    });
+}

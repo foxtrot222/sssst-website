@@ -500,3 +500,241 @@ body {
     color: #e67e00;
     text-decoration: underline;
 }
+
+/* =========================
+   Home Page: Focus Areas
+========================= */
+.initiatives-section {
+    /* Values are: Top, Right, Bottom, Left */
+    padding: 10px 20px 60px 20px; 
+    text-align: center;
+    background-color: #f9f9f9;
+}
+.initiatives-section h2 {
+    font-size: 36px;
+    color: #FF8C00;
+    margin-bottom: 40px;
+}
+
+/* Creates a responsive grid that automatically adjusts based on screen size */
+.initiatives-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* The individual icon boxes */
+.initiative-card {
+    background: #ffffff;
+    padding: 35px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+/* The hover animation (lifts the card up slightly) */
+.initiative-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* The Icons */
+.initiative-card i {
+    font-size: 45px;
+    color: #FF8C00;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+/* Optional: Slight bounce effect on the icon when hovering over the card */
+.initiative-card:hover i {
+    transform: scale(1.1);
+}
+
+/* The text under the icons */
+.initiative-card h3 {
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+}
+
+/* =========================
+   Impact Statistics Section
+========================= */
+.stats-section {
+    background-color: #FF8C00;
+    color: #ffffff;
+    padding: 70px 20px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.stat-box {
+    flex: 1;
+    min-width: 200px;
+}
+
+.stat-box i {
+    font-size: 45px;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+.stat-number {
+    font-size: 55px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.stat-box p {
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    opacity: 0.9;
+}
+
+/* =========================
+   Awards & Recognition
+========================= */
+.awards-section {
+    padding: 70px 20px;
+    text-align: center;
+    background-color: #ffffff; /* Clean white background */
+}
+
+.awards-section h2 {
+    font-size: 36px;
+    color: #FF8C00;
+    margin-bottom: 40px;
+}
+
+.awards-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1080px;
+    margin: 0 auto 40px auto; /* 40px margin at the bottom pushes the paragraph down */
+}
+
+/* The Placeholder Boxes */
+.award-placeholder {
+    flex: 1;
+    min-width: 250px;
+    max-width: 320px; /* Keeps them medium-sized */
+    aspect-ratio: 4 / 3;
+    background-color: #f9f9f9;
+    border: 2px dashed #cccccc; /* Dashed border for the placeholder look */
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+/* Temporary text inside the box */
+.award-placeholder::before {
+    content: "Image Placeholder";
+    color: #999999;
+    font-weight: bold;
+    position: absolute;
+    z-index: 1;
+}
+
+/* Hides the broken image icon until you add real images */
+.award-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0; 
+    position: relative;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+}
+
+/* The Paragraph Text */
+.awards-description {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* =========================
+   Hero & Gallery Layout
+========================= */
+
+.gallery-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    flex-wrap: wrap; 
+}
+
+/* --- Left Column: The Gallery --- */
+.gallery-section .slider {
+    flex: 2.5; /* Bumping this from 1.5 to 2.5 forces it to dominate the space */
+    min-width: 450px; /* Prevents it from shrinking too much on medium screens */
+    margin: 0; 
+}
+
+/* --- Right Column: The Text --- */
+.hero-content {
+    flex: 1; /* Text is now strictly confined to whatever space is left over */
+    min-width: 280px;
+    text-align: left;
+}
+.hero-content h1 {
+    font-size: 38px; /* Scaled down slightly to accompany the gallery */
+    color: #333;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.hero-content h1 span {
+    color: #FF8C00; 
+}
+
+.hero-content p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* The Call to Action Button */
+.hero-btn {
+    display: inline-block;
+    background-color: #FF8C00;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 10px; /* Adjusted to exactly 10px */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.hero-btn:hover {
+    background-color: #e67e00;
+}

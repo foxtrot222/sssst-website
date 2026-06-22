@@ -14,6 +14,30 @@ document.addEventListener("DOMContentLoaded", () => {
         // Initialize core component controllers
         setupDonateModal();
         highlightCurrentPage();
+        setupMobileMenu();
+        function setupMobileMenu() {
+
+            const menuToggle = document.getElementById("menuToggle");
+            const navbarLinks = document.getElementById("navbarLinks");
+
+            if (!menuToggle || !navbarLinks)
+                return;
+
+            menuToggle.addEventListener("click", () => {
+
+                navbarLinks.classList.toggle("active");
+
+                const icon = menuToggle.querySelector("i");
+
+                if (navbarLinks.classList.contains("active")) {
+                    icon.classList.remove("fa-bars");
+                    icon.classList.add("fa-times");
+                } else {
+                    icon.classList.remove("fa-times");
+                    icon.classList.add("fa-bars");
+                }
+            });
+        }
 
         // Initialize homepage-specific modules if elements exist in the DOM
         if (document.querySelector('.counter')) {

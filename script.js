@@ -26,19 +26,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function setupDonateModal() {
 
-    const donateBtn = document.getElementById("donateBtn");
+    const donateBtn = document.getElementById("donateBtn"); // Navbar button
+    const heroDonateBtn = document.getElementById("heroDonateBtn"); // New Hero button
     const modal = document.getElementById("donationModal");
     const closeBtn = document.querySelector(".close-btn");
 
-    if (!donateBtn || !modal || !closeBtn) {
+    if (!modal || !closeBtn) {
         console.error("Donation modal elements not found.");
         return;
     }
 
-    donateBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        modal.style.display = "flex";
-    });
+    // Opens modal from the Navbar
+    if (donateBtn) {
+        donateBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            modal.style.display = "flex";
+        });
+    }
+
+    // Opens modal from the Hero section
+    if (heroDonateBtn) {
+        heroDonateBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            modal.style.display = "flex";
+        });
+    }
 
     closeBtn.addEventListener("click", function() {
         modal.style.display = "none";

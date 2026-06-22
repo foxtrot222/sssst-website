@@ -738,3 +738,27 @@ body {
 .hero-btn:hover {
     background-color: #e67e00;
 }
+
+/* =========================
+   Hero Buttons Layout
+========================= */
+.hero-buttons {
+    display: flex;
+    flex-direction: column; /* Stacks the buttons vertically */
+    gap: 15px; /* Space between the two buttons */
+    align-items: flex-start; /* Prevents them from stretching full width */
+}
+
+/* Secondary Button Styling for Donate */
+.hero-donate-btn {
+    background-color: #ffffff;
+    color: #FF8C00;
+    border: 2px solid #FF8C00;
+    /* Reduced padding by 2px to account for the border width so both buttons are the exact same size */
+    padding: 10px 22px; 
+}
+
+.hero-donate-btn:hover {
+    background-color: #FF8C00;
+    color: #ffffff;
+}

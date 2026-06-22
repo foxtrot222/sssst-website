@@ -461,3 +461,42 @@ body {
         opacity: 1;
     }
 }
+
+
+/* =========================
+   Donate Button Styling
+========================= */
+#donateBtn {
+    background-color: #FF8C00;
+    color: #ffffff !important; /* Forces the text to be white */
+    padding: 10px 24px;
+    border-radius: 10px; /* Gives it nice, rounded pill-shaped corners */
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* Hover effect to make it feel interactive */
+#donateBtn:hover {
+    background-color: #e67e00; /* Slightly darker orange */
+    transform: translateY(-2px); /* Slight lift effect when hovered */
+}
+
+/* Removes the animated orange underline just for this button */
+#donateBtn::after {
+    display: none;
+}
+
+/* =========================
+   UPI Link Styling
+========================= */
+#upiLink {
+    color: #FF8C00;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+#upiLink:hover {
+    color: #e67e00;
+    text-decoration: underline;
+}

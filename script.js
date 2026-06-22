@@ -1,105 +1,113 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-Promise.all([
+    // Asynchronously load all shared UI components
+    Promise.all([
         fetch("navbar.html").then(response => response.text()),
         fetch("donate-modal.html").then(response => response.text()),
-        fetch("footer.html").then(response => response.text()) // <-- Added Footer
+        fetch("footer.html").then(response => response.text())
     ])
     .then(([navbarData, modalData, footerData]) => {
-
-        // Load common components
+        // Inject components into their respective DOM insertion points
         document.getElementById("navbar").innerHTML = navbarData;
         document.getElementById("donate-modal").innerHTML = modalData;
-        document.getElementById("footer").innerHTML = footerData; // <-- Added Footer Injection
+        document.getElementById("footer").innerHTML = footerData;
 
-        // Setup donation modal
+        // Initialize core component controllers
         setupDonateModal();
-
-        // Highlight current page
         highlightCurrentPage();
 
-        // Start the number counter observers (Only runs if on the home page)
-        if (typeof startCounters === "function") {
-             startCounters();
+        // Initialize homepage-specific modules if elements exist in the DOM
+        if (document.querySelector('.counter')) {
+            startCounters();
         }
-
+        if (document.getElementById("slide")) {
+            findImages();
+        }
     })
-    .catch(error => console.error("Error loading components:", error));
-
+    .catch(error => console.error("Error initializing application components:", error));
 });
 
+/**
+ * Coordinates event listeners and state management for the Donation Modal.
+ */
 function setupDonateModal() {
-
     const donateBtn = document.getElementById("donateBtn"); 
     const heroDonateBtn = document.getElementById("heroDonateBtn"); 
-    const footerDonateBtn = document.getElementById("footerDonateBtn"); // <-- Added Footer Link
+    const footerDonateBtn = document.getElementById("footerDonateBtn"); 
     const modal = document.getElementById("donationModal");
     const closeBtn = document.querySelector(".close-btn");
 
     if (!modal || !closeBtn) return;
 
-    if (donateBtn) {
-        donateBtn.addEventListener("click", e => { e.preventDefault(); modal.style.display = "flex"; });
-    }
+    const openModal = (e) => {
+        e.preventDefault();
+        modal.style.display = "flex";
+    };
 
-    if (heroDonateBtn) {
-        heroDonateBtn.addEventListener("click", e => { e.preventDefault(); modal.style.display = "flex"; });
-    }
+    const closeModal = () => {
+        modal.style.display = "none";
+    };
 
-    if (footerDonateBtn) { // <-- Added Footer Event Listener
-        footerDonateBtn.addEventListener("click", e => { e.preventDefault(); modal.style.display = "flex"; });
-    }
+    // Attach trigger listeners
+    if (donateBtn) donateBtn.addEventListener("click", openModal);
+    if (heroDonateBtn) heroDonateBtn.addEventListener("click", openModal);
+    if (footerDonateBtn) footerDonateBtn.addEventListener("click", openModal);
 
-    closeBtn.addEventListener("click", () => modal.style.display = "none");
-    window.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
+    closeBtn.addEventListener("click", closeModal);
+    
+    // Close modal window when clicking the background overlay
+    window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
 }
 
+/**
+ * Parses the current URL pathname and assigns the active CSS class to the matching nav link.
+ */
 function highlightCurrentPage() {
-
-    const currentPage =
-        window.location.pathname.split("/").pop() || "index.html";
-
+    const currentPage = window.location.pathname.split("/").pop() || "index.html";
     const navLinks = document.querySelectorAll(".nav-link");
 
     navLinks.forEach(link => {
-
-        const href = link.getAttribute("href");
-
-        if (href === currentPage) {
+        if (link.getAttribute("href") === currentPage) {
             link.classList.add("active");
         }
     });
 }
 
-// Array to hold our successfully found images
+/* ==========================================================================
+   Image Slider Module
+   ========================================================================== */
+
 let images = [];
 let currentIndex = 0;
-const imgElement = document.getElementById("slide");
-
-// The number we start checking at (1.something)
 let checkIndex = 1;
-
-// The file extensions we want to check for each number
-const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
 let extIndex = 0; 
-
-// --- Auto-Slide Timer Variables ---
 let slideTimer;
-const slideDelay = 4000; 
 
+const slideDelay = 4000; 
+const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+
+/**
+ * Recursively checks the assets directory for valid sequentially numbered images
+ * across multiple supported image extensions, seeding the slider array dynamically.
+ */
 function findImages() {
+    const imgElement = document.getElementById("slide");
+    if (!imgElement) return;
+
     let img = new Image();
-    
     let currentExtension = extensions[extIndex];
     img.src = `images/${checkIndex}.${currentExtension}`;
 
     img.onload = function() {
         images.push(img.src); 
         
-        // NEW: If this is the very first image found, display it immediately!
+        // Render the initial image immediately upon discovery
         if (images.length === 1) {
             imgElement.src = images[0];
-            imgElement.style.opacity = 1; // Fade it in
+            imgElement.style.opacity = 1; 
         }
 
         checkIndex++;         
@@ -113,26 +121,26 @@ function findImages() {
         if (extIndex < extensions.length) {
             findImages(); 
         } else {
-            // We reached the end of the gallery
             if (images.length > 0) {
-                // The first image is already showing, so just start the timer
                 startAutoSlide(); 
             } else {
-                console.log("No images found. Make sure they are numbered (1, 2, 3...) inside the images folder.");
+                console.warn("Asset Discovery: No sequentially numbered assets resolved in /images.");
             }
         }
     };
 }
 
-// Function to handle the Next and Previous buttons
+/**
+ * Handles slide transitions with a timed opacity fade cross-over sequence.
+ * @param {number} direction - Sequence modifier (1 for next, -1 for previous)
+ */
 function changeSlide(direction) {
-    if (images.length === 0) return; 
+    const imgElement = document.getElementById("slide");
+    if (images.length === 0 || !imgElement) return; 
 
-    // 1. Trigger the fade-out effect
     imgElement.style.opacity = 0;
 
-    // 2. Wait 300 milliseconds for it to fade, then swap the image
-    setTimeout(function() {
+    setTimeout(() => {
         currentIndex += direction;
 
         if (currentIndex < 0) {
@@ -142,18 +150,14 @@ function changeSlide(direction) {
         }
 
         imgElement.src = images[currentIndex];
-        
-        // 3. Trigger the fade-in effect
         imgElement.style.opacity = 1;
-
     }, 300);
 
     resetAutoSlide();
 }
 
-// --- Auto-Slide Functions ---
 function startAutoSlide() {
-    slideTimer = setInterval(function() {
+    slideTimer = setInterval(() => {
         changeSlide(1); 
     }, slideDelay);
 }
@@ -163,25 +167,25 @@ function resetAutoSlide() {
     startAutoSlide();
 }
 
-// Start the auto-detect process as soon as the file loads
-findImages();
+/* ==========================================================================
+   Intersection Observer Counters
+   ========================================================================== */
 
-
-// --- Number Counter Animation ---
+/**
+ * Uses the IntersectionObserver API to fire high-performance frame-rate optimized (rAF)
+ * count-up numerical sequences when the elements cross the view threshold.
+ */
 function startCounters() {
     const counters = document.querySelectorAll('.counter');
     
-    // Setting up the observer to watch when elements appear on screen
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const counter = entry.target;
-                const target = +counter.getAttribute('data-target');
+                const target = +counter.getAttribute("data-target");
                 
-                // Adjusting speed based on the size of the target number
-                const duration = 2000; // Animation lasts 2 seconds
-                const increment = target / (duration / 16); // 16ms is roughly 1 frame at 60fps
-                
+                const duration = 2000; 
+                const increment = target / (duration / 16); 
                 let currentCount = 0;
                 
                 const updateCounter = () => {
@@ -190,19 +194,15 @@ function startCounters() {
                         counter.innerText = Math.ceil(currentCount);
                         requestAnimationFrame(updateCounter);
                     } else {
-                        counter.innerText = target; // Ensure it ends exactly on the target
+                        counter.innerText = target; 
                     }
                 };
                 
                 updateCounter();
-                
-                // Stop observing once the animation has run so it doesn't repeat on scroll up
                 observer.unobserve(counter);
             }
         });
-    }, { threshold: 0.5 }); // Starts when 50% of the section is visible
+    }, { threshold: 0.5 });
 
-    counters.forEach(counter => {
-        observer.observe(counter);
-    });
+    counters.forEach(counter => observer.observe(counter));
 }

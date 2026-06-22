@@ -1,14 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    Promise.all([
+Promise.all([
         fetch("navbar.html").then(response => response.text()),
-        fetch("donate-modal.html").then(response => response.text())
+        fetch("donate-modal.html").then(response => response.text()),
+        fetch("footer.html").then(response => response.text()) // <-- Added Footer
     ])
-    .then(([navbarData, modalData]) => {
+    .then(([navbarData, modalData, footerData]) => {
 
         // Load common components
         document.getElementById("navbar").innerHTML = navbarData;
         document.getElementById("donate-modal").innerHTML = modalData;
+        document.getElementById("footer").innerHTML = footerData; // <-- Added Footer Injection
 
         // Setup donation modal
         setupDonateModal();
@@ -16,8 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // Highlight current page
         highlightCurrentPage();
 
-	// Start the number counter observers
-        startCounters();
+        // Start the number counter observers (Only runs if on the home page)
+        if (typeof startCounters === "function") {
+             startCounters();
+        }
 
     })
     .catch(error => console.error("Error loading components:", error));
@@ -26,41 +30,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function setupDonateModal() {
 
-    const donateBtn = document.getElementById("donateBtn"); // Navbar button
-    const heroDonateBtn = document.getElementById("heroDonateBtn"); // New Hero button
+    const donateBtn = document.getElementById("donateBtn"); 
+    const heroDonateBtn = document.getElementById("heroDonateBtn"); 
+    const footerDonateBtn = document.getElementById("footerDonateBtn"); // <-- Added Footer Link
     const modal = document.getElementById("donationModal");
     const closeBtn = document.querySelector(".close-btn");
 
-    if (!modal || !closeBtn) {
-        console.error("Donation modal elements not found.");
-        return;
-    }
+    if (!modal || !closeBtn) return;
 
-    // Opens modal from the Navbar
     if (donateBtn) {
-        donateBtn.addEventListener("click", function(e) {
-            e.preventDefault();
-            modal.style.display = "flex";
-        });
+        donateBtn.addEventListener("click", e => { e.preventDefault(); modal.style.display = "flex"; });
     }
 
-    // Opens modal from the Hero section
     if (heroDonateBtn) {
-        heroDonateBtn.addEventListener("click", function(e) {
-            e.preventDefault();
-            modal.style.display = "flex";
-        });
+        heroDonateBtn.addEventListener("click", e => { e.preventDefault(); modal.style.display = "flex"; });
     }
 
-    closeBtn.addEventListener("click", function() {
-        modal.style.display = "none";
-    });
+    if (footerDonateBtn) { // <-- Added Footer Event Listener
+        footerDonateBtn.addEventListener("click", e => { e.preventDefault(); modal.style.display = "flex"; });
+    }
 
-    window.addEventListener("click", function(e) {
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
-    });
+    closeBtn.addEventListener("click", () => modal.style.display = "none");
+    window.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
 }
 
 function highlightCurrentPage() {

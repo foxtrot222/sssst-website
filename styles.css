@@ -306,7 +306,16 @@ body {
 .awards-description { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 800px; margin: 0 auto; }
 
 /* --- About Us Page --- */
-.about-page { display: flex; flex-direction: column; gap: 20px; max-width: var(--max-width-container); margin: 0 auto; padding: 40px 20px;}
+
+.about-page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: var(--max-width-container);
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
 .page-header {
     display: flex;
     flex-direction: column;
@@ -323,19 +332,135 @@ body {
     max-width: 800px;
 }
 
+/* --- Activity Sections --- */
+
 .about-section {
-    display: flex; align-items: center; gap: 15px; background: var(--bg-white);
-    padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: var(--bg-white);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
 }
-.about-section.reverse { flex-direction: row-reverse; }
 
-.about-image { flex: 1; min-width: 300px; }
-.about-image img { width: 100%; border-radius: 10px; object-fit: cover; aspect-ratio: 4 / 3; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.about-section.reverse {
+    flex-direction: row-reverse;
+}
 
-.about-text { flex: 1; min-width: 300px; }
-.about-text h2 { color: var(--brand-orange); font-size: 28px; margin-bottom: 15px; }
-.about-text h4 { color: var(--text-main); margin-top: 15px; margin-bottom: 5px; font-size: 18px; }
-.about-text p { color: var(--text-muted); font-size: 16px; line-height: 1.6; margin-bottom: 20px; }
+/* --- Fixed Image Area --- */
+
+.about-image {
+    flex: 1;
+    min-width: 300px;
+    height: 450px;
+}
+
+.about-image > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* ========================================================================== */
+/* ABOUT PAGE IMAGE SLIDERS */
+/* ========================================================================== */
+
+.about-gallery {
+    flex: 1.2;
+    min-width: 400px;
+}
+
+.about-slider {
+    position: relative;
+    width: 100%;
+    height: 400px;
+
+    overflow: hidden;
+    border-radius: 10px;
+
+    background: #f8f8f8;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.activity-slide {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    opacity: 0;
+
+    transition: opacity 0.5s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .about-gallery {
+    width: 100%;
+    min-width: unset;
+}
+
+.about-slider {
+    height: 280px;
+}
+}
+
+/* --- Text Area --- */
+
+.about-text {
+    flex: 1;
+    min-width: 300px;
+    margin-left: 20px;
+}
+
+.about-text h2 {
+    color: var(--brand-orange);
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.about-text h4 {
+    color: var(--text-main);
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.about-text p {
+    color: var(--text-muted);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* --- Mobile Responsive --- */
+
+@media (max-width: 768px) {
+
+    .about-section,
+    .about-section.reverse {
+        flex-direction: column;
+    }
+
+    .about-image {
+        width: 100%;
+        min-width: unset;
+        height: 250px;
+    }
+
+    .about-text {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 15px;
+    }
+}
 
 /* --- Contact Page --- */
 .content-container > header {

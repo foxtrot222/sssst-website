@@ -46,6 +46,15 @@ document.addEventListener("DOMContentLoaded", () => {
         if (document.getElementById("slide")) {
             findImages();
         }
+
+        // About page sliders
+        createActivitySlider("environment_slide", "environment");
+        createActivitySlider("health_slide", "health_yoga");
+        createActivitySlider("women_slide", "women_empowerment");
+        createActivitySlider("education_slide", "education");
+        createActivitySlider("child_protection_slide", "child_protection");
+        createActivitySlider("animal_rescue_slide", "animal_rescue");
+        createActivitySlider("hunger_slide", "hunger_drive");
     })
     .catch(error => console.error("Error initializing application components:", error));
 });
@@ -192,6 +201,79 @@ function resetAutoSlide() {
 }
 
 /* ==========================================================================
+   Activity Slider Module
+   ========================================================================== */
+
+function createActivitySlider(imageId, folderName) {
+
+    let images = [];
+    let currentIndex = 0;
+    let checkIndex = 1;
+    let extIndex = 0;
+
+    const extensions = ["jpg", "jpeg", "png", "webp"];
+    const slideDelay = 4000;
+
+    const imgElement = document.getElementById(imageId);
+
+    if (!imgElement) return;
+
+    function loadImages() {
+
+        let img = new Image();
+
+        img.src = `images/${folderName}/${checkIndex}.${extensions[extIndex]}`;
+
+        img.onload = () => {
+
+            images.push(img.src);
+
+            if (images.length === 1) {
+                imgElement.src = images[0];
+                imgElement.style.opacity = 1;
+            }
+
+            checkIndex++;
+            extIndex = 0;
+
+            loadImages();
+        };
+
+        img.onerror = () => {
+
+            extIndex++;
+
+            if (extIndex < extensions.length) {
+                loadImages();
+            } else {
+
+                if (images.length > 1) {
+
+                    setInterval(() => {
+
+                        imgElement.style.opacity = 0;
+
+                        setTimeout(() => {
+
+                            currentIndex =
+                                (currentIndex + 1) % images.length;
+
+                            imgElement.src = images[currentIndex];
+
+                            imgElement.style.opacity = 1;
+
+                        }, 300);
+
+                    }, slideDelay);
+                }
+            }
+        };
+    }
+
+    loadImages();
+}
+
+/* ==========================================================================
    Intersection Observer Counters
    ========================================================================== */
 
@@ -230,3 +312,28 @@ function startCounters() {
 
     counters.forEach(counter => observer.observe(counter));
 }
+
+/* About Section Slide Show */
+document.querySelectorAll(".about-slider").forEach(slider => {
+
+    const slides = slider.querySelectorAll(".about-slide");
+    const prev = slider.querySelector(".about-prev");
+    const next = slider.querySelector(".about-next");
+
+    let current = 0;
+
+    function showSlide(index) {
+
+        slides.forEach(slide => {
+            slide.classList.remove("active");
+        });
+
+        slides[index].classList.add("active");
+    }
+
+    setInterval(() => {
+        current = (current + 1) % slides.length;
+        showSlide(current);
+    }, 5000);
+
+});

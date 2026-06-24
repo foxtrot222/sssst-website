@@ -34,10 +34,10 @@ jobs:
                 
                 if [ ! -f "$webp_img" ]; then
                   echo "Converting $img to $webp_img"
-                  # 1. Convert the image
+                  # Convert the image
                   cwebp -q 80 "$img" -o "$webp_img"
                   
-                  # 2. Delete the original file so your mom doesn't have to
+                  # Delete the original file
                   echo "Cleaning up original: $img"
                   rm "$img"
                 fi
@@ -46,9 +46,8 @@ jobs:
           else
             echo "The 'images' folder does not exist yet."
           fi
-	  
+
       - name: Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: auto-convert images to WebP [skip ci]"
-          # No file_pattern needed; it will just commit the newly generated WebP files
+          commit_message: "chore: auto-convert images to WebP and clean up originals [skip ci]"

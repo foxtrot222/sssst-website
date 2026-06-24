@@ -35,7 +35,7 @@ jobs:
                 if [ ! -f "$webp_img" ]; then
                   echo "Converting $img to $webp_img"
                   # Convert the image
-                  cwebp -q 80 "$img" -o "$webp_img"
+                  cwebp -q 100 "$img" -o "$webp_img"
                   
                   # Delete the original file
                   echo "Cleaning up original: $img"

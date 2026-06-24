@@ -116,23 +116,19 @@ function highlightCurrentPage() {
 let images = [];
 let currentIndex = 0;
 let checkIndex = 1;
-let extIndex = 0; 
 let slideTimer;
 
 const slideDelay = 4000; 
-const extensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
 
 /**
- * Recursively checks the assets directory for valid sequentially numbered images
- * across multiple supported image extensions, seeding the slider array dynamically.
+ * Recursively checks the assets directory for valid sequentially numbered .webp images.
  */
 function findImages() {
     const imgElement = document.getElementById("slide");
     if (!imgElement) return;
 
     let img = new Image();
-    let currentExtension = extensions[extIndex];
-    img.src = `images/${checkIndex}.${currentExtension}`;
+    img.src = `images/${checkIndex}.webp`; // Strictly forces .webp lookups
 
     img.onload = function() {
         images.push(img.src); 
@@ -144,28 +140,21 @@ function findImages() {
         }
 
         checkIndex++;         
-        extIndex = 0;         
         findImages();         
     };
 
     img.onerror = function() {
-        extIndex++; 
-
-        if (extIndex < extensions.length) {
-            findImages(); 
+        // If a .webp fails to load, the sequence is over. Start the slider.
+        if (images.length > 0) {
+            startAutoSlide(); 
         } else {
-            if (images.length > 0) {
-                startAutoSlide(); 
-            } else {
-                console.warn("Asset Discovery: No sequentially numbered assets resolved in /images.");
-            }
+            console.warn("Asset Discovery: No sequentially numbered .webp assets resolved in /images.");
         }
     };
 }
 
 /**
  * Handles slide transitions with a timed opacity fade cross-over sequence.
- * @param {number} direction - Sequence modifier (1 for next, -1 for previous)
  */
 function changeSlide(direction) {
     const imgElement = document.getElementById("slide");
@@ -206,66 +195,44 @@ function resetAutoSlide() {
 
 function createActivitySlider(imageId, folderName) {
 
-    let images = [];
-    let currentIndex = 0;
-    let checkIndex = 1;
-    let extIndex = 0;
+    let sliderImages = [];
+    let sliderCurrentIndex = 0;
+    let sliderCheckIndex = 1;
 
-    const extensions = ["jpg", "jpeg", "png", "webp"];
-    const slideDelay = 4000;
-
+    const activitySlideDelay = 4000;
     const imgElement = document.getElementById(imageId);
 
     if (!imgElement) return;
 
     function loadImages() {
-
         let img = new Image();
-
-        img.src = `images/${folderName}/${checkIndex}.${extensions[extIndex]}`;
+        img.src = `images/${folderName}/${sliderCheckIndex}.webp`; // Strictly forces .webp lookups
 
         img.onload = () => {
+            sliderImages.push(img.src);
 
-            images.push(img.src);
-
-            if (images.length === 1) {
-                imgElement.src = images[0];
+            if (sliderImages.length === 1) {
+                imgElement.src = sliderImages[0];
                 imgElement.style.opacity = 1;
             }
 
-            checkIndex++;
-            extIndex = 0;
-
+            sliderCheckIndex++;
             loadImages();
         };
 
         img.onerror = () => {
+            // Once the sequence breaks, fire up the interval timer
+            if (sliderImages.length > 1) {
+                setInterval(() => {
+                    imgElement.style.opacity = 0;
 
-            extIndex++;
+                    setTimeout(() => {
+                        sliderCurrentIndex = (sliderCurrentIndex + 1) % sliderImages.length;
+                        imgElement.src = sliderImages[sliderCurrentIndex];
+                        imgElement.style.opacity = 1;
+                    }, 300);
 
-            if (extIndex < extensions.length) {
-                loadImages();
-            } else {
-
-                if (images.length > 1) {
-
-                    setInterval(() => {
-
-                        imgElement.style.opacity = 0;
-
-                        setTimeout(() => {
-
-                            currentIndex =
-                                (currentIndex + 1) % images.length;
-
-                            imgElement.src = images[currentIndex];
-
-                            imgElement.style.opacity = 1;
-
-                        }, 300);
-
-                    }, slideDelay);
-                }
+                }, activitySlideDelay);
             }
         };
     }

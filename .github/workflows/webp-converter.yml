@@ -1,0 +1,55 @@
+name: Convert Images to WebP
+
+# Trigger the action only when images are pushed to the main branch
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.jpg'
+      - '**.jpeg'
+      - '**.png'
+
+# Grant permissions needed to commit and push changes back to the repo
+permissions:
+  contents: write
+
+jobs:
+  convert-to-webp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          # Fetch all history so the commit action works smoothly
+          fetch-depth: 0 
+
+      - name: Install WebP utilities
+        run: sudo apt-get update && sudo apt-get install -y webp
+
+      - name: Convert PNG and JPG to WebP
+        run: |
+          # Find all png and jpeg images
+          find . -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec sh -c '
+            for img do
+              # Define the new filename with .webp extension
+              webp_img="${img%.*}.webp"
+              
+              # Only convert if the WebP version does not already exist
+              if [ ! -f "$webp_img" ]; then
+                echo "Converting $img to $webp_img"
+                # Convert to WebP with 80% quality (-q 80)
+                cwebp -q 80 "$img" -o "$webp_img"
+                
+                # OPTIONAL: Uncomment the line below to delete the original image after conversion
+                # rm "$img"
+              fi
+            done
+          ' sh {} +
+
+      - name: Commit and Push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-convert images to WebP [skip ci]"
+          # Only commit image files to prevent accidental commits of other temporary files
+          file_pattern: "*.webp *.jpg *.jpeg *.png"

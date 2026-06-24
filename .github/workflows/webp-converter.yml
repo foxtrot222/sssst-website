@@ -27,8 +27,6 @@ jobs:
 
       - name: Convert PNG and JPG to WebP
         run: |
-          # 2. SCRIPT: Search only inside the 'images' folder
-          # We also check if the directory exists first to prevent errors if the folder is missing
           if [ -d "./images" ]; then
             find ./images -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec sh -c '
               for img do
@@ -36,14 +34,19 @@ jobs:
                 
                 if [ ! -f "$webp_img" ]; then
                   echo "Converting $img to $webp_img"
+                  # 1. Convert the image
                   cwebp -q 80 "$img" -o "$webp_img"
+                  
+                  # 2. Delete the original file so your mom doesn't have to
+                  echo "Cleaning up original: $img"
+                  rm "$img"
                 fi
               done
             ' sh {} +
           else
             echo "The 'images' folder does not exist yet."
           fi
-
+	  
       - name: Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:

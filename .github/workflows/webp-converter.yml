@@ -1,16 +1,15 @@
 name: Convert Images to WebP
 
-# Trigger the action only when images are pushed to the main branch
+# 1. TRIGGER: Only run when images in the 'images' folder are pushed
 on:
   push:
     branches:
       - main
     paths:
-      - '**.jpg'
-      - '**.jpeg'
-      - '**.png'
+      - 'images/**.jpg'
+      - 'images/**.jpeg'
+      - 'images/**.png'
 
-# Grant permissions needed to commit and push changes back to the repo
 permissions:
   contents: write
 
@@ -21,7 +20,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          # Fetch all history so the commit action works smoothly
           fetch-depth: 0 
 
       - name: Install WebP utilities
@@ -29,27 +27,25 @@ jobs:
 
       - name: Convert PNG and JPG to WebP
         run: |
-          # Find all png and jpeg images
-          find . -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec sh -c '
-            for img do
-              # Define the new filename with .webp extension
-              webp_img="${img%.*}.webp"
-              
-              # Only convert if the WebP version does not already exist
-              if [ ! -f "$webp_img" ]; then
-                echo "Converting $img to $webp_img"
-                # Convert to WebP with 80% quality (-q 80)
-                cwebp -q 80 "$img" -o "$webp_img"
+          # 2. SCRIPT: Search only inside the 'images' folder
+          # We also check if the directory exists first to prevent errors if the folder is missing
+          if [ -d "./images" ]; then
+            find ./images -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec sh -c '
+              for img do
+                webp_img="${img%.*}.webp"
                 
-                # OPTIONAL: Uncomment the line below to delete the original image after conversion
-                # rm "$img"
-              fi
-            done
-          ' sh {} +
+                if [ ! -f "$webp_img" ]; then
+                  echo "Converting $img to $webp_img"
+                  cwebp -q 80 "$img" -o "$webp_img"
+                fi
+              done
+            ' sh {} +
+          else
+            echo "The 'images' folder does not exist yet."
+          fi
 
       - name: Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: auto-convert images to WebP [skip ci]"
-          # Only commit image files to prevent accidental commits of other temporary files
-          file_pattern: "*.webp *.jpg *.jpeg *.png"
+          # No file_pattern needed; it will just commit the newly generated WebP files

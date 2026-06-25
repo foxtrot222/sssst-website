@@ -6,8 +6,10 @@
     <title>Sanskruti Samaj Seva Sansthan Trust</title>
     
     <link rel="icon" href="images/favicon.webp" type="image/webp" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preload" as="image" href="images/gallery/1.webp" fetchpriority="high">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
 </head>
 <body>
     <div id="navbar"></div>
@@ -15,7 +17,7 @@
     <section class="gallery-section">
         <div class="slider">
             <button class="prev" onclick="changeSlide(-1)" aria-label="Previous image">❮</button>
-            <img id="slide" alt="NGO Event" style="opacity: 0;">	    
+            <img id="slide" src="images/gallery/1.webp" alt="NGO Event" style="opacity: 1;" fetchpriority="high">	    
             <button class="next" onclick="changeSlide(1)" aria-label="Next image">❯</button>
         </div>
 
@@ -142,6 +144,6 @@
 
     <div id="footer"></div>
     <div id="donate-modal"></div>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

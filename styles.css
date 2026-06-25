@@ -277,24 +277,332 @@ body {
 .hero-content p { font-size: 16px; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; }
 .hero-buttons { display: flex; flex-direction: column; gap: 15px; align-items: flex-start; }
 
-/* --- Home Page: Focus Areas --- */
-.initiatives-section { padding: 10px 20px 60px 20px; text-align: center; background-color: var(--bg-light); }
-.initiatives-section h2 { font-size: 36px; color: var(--brand-orange); margin-bottom: 40px; }
+/* ==================================================
+   OUR FOCUS SECTION
+================================================== */
 
-.initiatives-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px; max-width: var(--max-width-container); margin: 0 auto;
+.focus-section{
+    max-width: 1300px;
+    margin: 60px auto;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
 }
 
-.initiative-card {
-    background: var(--bg-white); padding: 35px 20px;
-    border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: all 0.3s ease; cursor: default;
+/* ==================================================
+   LEFT CONTENT
+================================================== */
+
+.focus-content{
+    flex: 1;
+    max-width: 500px;
 }
-.initiative-card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-.initiative-card i { font-size: 45px; color: var(--brand-orange); margin-bottom: 20px; transition: transform 0.3s; }
-.initiative-card:hover i { transform: scale(1.1); }
-.initiative-card h3 { font-size: 18px; margin: 0; color: var(--text-main); }
+
+.focus-content h2{
+    color: var(--brand-orange);
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.focus-content p{
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-size: 17px;
+    margin-bottom: 18px;
+}
+
+/* ==================================================
+   RIGHT DIAGRAM
+================================================== */
+
+.focus-diagram{
+    position: relative;
+    width: 600px;
+    height: 600px;
+    flex-shrink: 0;
+}
+
+/* Orange Ring */
+
+.focus-diagram::before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 420px;
+    height: 420px;
+    border: 10px solid var(--brand-orange);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ==================================================
+   CENTER CIRCLE
+================================================== */
+
+.center-circle{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+
+    width:220px;
+    height:220px;
+
+    background:#fff;
+    border-radius:50%;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+    z-index:5;
+
+    box-shadow:0 5px 20px rgba(0,0,0,0.15);
+}
+
+.center-circle i{
+    font-size:40px;
+    color:var(--brand-orange);
+    margin-bottom:8px;
+}
+
+.center-circle h2{
+    font-size:22px;
+    line-height:1.2;
+    margin:0;
+    color:var(--brand-orange);
+}
+
+/* ==================================================
+   OUTER CIRCLES
+================================================== */
+
+.focus-item{
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    background: #fff;
+    border-radius: 50%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    padding: 10px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.focus-item i{
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.focus-item h4{
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* ==================================================
+   NODE POSITIONS
+================================================== */
+
+.environment{
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #4CAF50;
+}
+
+.health{
+    top: 65px;
+    right: 30px;
+    color: #7E57C2;
+}
+
+.women{
+    top: 235px;
+    right: 0;
+    color: #E91E63;
+}
+
+.education{
+    bottom: 65px;
+    right: 30px;
+    color: #2196F3;
+}
+
+.child{
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #009688;
+}
+
+.animal{
+    bottom: 65px;
+    left: 30px;
+    color: #FF5722;
+}
+
+.hunger{
+    top: 235px;
+    left: 0;
+    color: #FFB300;
+}
+
+.community{
+    top: 65px;
+    left: 30px;
+    color: #4CAF50;
+}
+
+/* ==================================================
+   TABLET
+================================================== */
+
+@media (max-width: 992px){
+
+    .focus-section{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .focus-content{
+        max-width: 100%;
+    }
+
+    .focus-diagram{
+        width: 500px;
+        height: 500px;
+    }
+
+    .focus-diagram::before{
+        width: 340px;
+        height: 340px;
+    }
+
+    .center-circle{
+        width: 190px;
+        height: 190px;
+    }
+
+    .center-circle h2{
+        font-size: 26px;
+    }
+
+    .focus-item{
+        width: 100px;
+        height: 100px;
+    }
+
+    .focus-item i{
+        font-size: 22px;
+    }
+
+    .focus-item h4{
+        font-size: 11px;
+    }
+}
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width: 576px){
+
+    .focus-diagram{
+        width: 350px;
+        height: 350px;
+    }
+
+    .focus-diagram::before{
+        width: 220px;
+        height: 220px;
+    }
+
+    .center-circle{
+        width: 130px;
+        height: 130px;
+        padding: 10px;
+    }
+
+    .center-circle i{
+        font-size: 28px;
+    }
+
+    .center-circle h2{
+        font-size: 12px;
+    }
+
+    .center-circle p{
+        display: none;
+    }
+
+    .focus-item{
+        width: 75px;
+        height: 75px;
+        padding: 5px;
+    }
+
+    .focus-item i{
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+
+    .focus-item h4{
+        font-size: 8px;
+    }
+
+    .environment{
+        top: 0;
+    }
+
+    .health{
+        top: 40px;
+        right: 30px;
+    }
+
+    .women{
+        top: 140px;
+        right: 0px;
+    }
+
+    .education{
+        bottom: 40px;
+        right: 30px;
+    }
+
+    .child{
+        bottom: 0;
+    }
+
+    .animal{
+        bottom: 40px;
+        left: 30px;
+    }
+
+    .hunger{
+        top: 140px;
+        left: 0px;
+    }
+
+    .community{
+        top: 40px;
+        left: 30px;
+    }
+
+}
 
 /* --- Home Page: Impact Stats --- */
 .stats-section {

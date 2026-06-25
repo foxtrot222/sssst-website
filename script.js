@@ -280,28 +280,3 @@ function startCounters() {
 
     counters.forEach(counter => observer.observe(counter));
 }
-
-/* About Section Slide Show */
-document.querySelectorAll(".about-slider").forEach(slider => {
-
-    const slides = slider.querySelectorAll(".about-slide");
-    const prev = slider.querySelector(".about-prev");
-    const next = slider.querySelector(".about-next");
-
-    let current = 0;
-
-    function showSlide(index) {
-
-        slides.forEach(slide => {
-            slide.classList.remove("active");
-        });
-
-        slides[index].classList.add("active");
-    }
-
-    setInterval(() => {
-        current = (current + 1) % slides.length;
-        showSlide(current);
-    }, 5000);
-
-});

@@ -256,6 +256,24 @@ body {
 .hero-content { flex: 1; min-width: 280px; text-align: left; }
 .hero-content h1 { font-size: 38px; line-height: 1.2; margin-bottom: 20px; color: var(--text-main); }
 .hero-content h1 span { color: var(--brand-orange); }
+
+/* --- NGO Registration Badge --- */
+.ngo-reg-badge {
+    display: inline-block;
+    background-color: #fff3e6; /* Light orange tint */
+    color: var(--brand-orange);
+    font-size: 14px;
+    font-weight: bold;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--brand-orange);
+}
+
+.ngo-reg-badge i {
+    margin-right: 6px;
+}
+
 .hero-content p { font-size: 16px; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px; }
 .hero-buttons { display: flex; flex-direction: column; gap: 15px; align-items: flex-start; }
 

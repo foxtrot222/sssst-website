@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
         createActivitySlider("child_protection_slide", "child_protection");
         createActivitySlider("animal_rescue_slide", "animal_rescue");
         createActivitySlider("hunger_slide", "hunger_drive");
+	createActivitySlider("others_slide", "others");
     })
     .catch(error => console.error("Error initializing application components:", error));
 });

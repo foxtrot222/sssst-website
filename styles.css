@@ -903,11 +903,16 @@ body {
         height: 50px;
     }
 
-    /* Hamburger Button */
-    .menu-toggle {
-        display: block;
-        font-size: 30px;
-    }
+    /* Hamburger Icon - Visible on Mobile */
+.menu-toggle {
+    display: block;             /* CHANGED FROM none TO block */
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--brand-orange); 
+    background: transparent;    
+    border: none;               
+    padding: 0;                 
+}
 
     /* Mobile Menu */
     .navbar-links {

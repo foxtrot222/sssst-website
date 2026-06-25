@@ -812,3 +812,48 @@ body {
         font-size: 18px;
     }
 }
+
+/* --- Home Page: MVV Section --- */
+.mvv-section { 
+    padding: 70px 20px; 
+    background-color: var(--bg-white); 
+    text-align: center; 
+}
+
+.mvv-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 30px; 
+    max-width: 1100px; 
+    margin: 40px auto 0; 
+}
+
+.mvv-card { 
+    padding: 30px; 
+    background: var(--bg-light); 
+    border-radius: 15px; 
+    transition: transform 0.3s ease; 
+}
+
+.mvv-card:hover { 
+    transform: translateY(-10px); 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.mvv-card i { 
+    font-size: 40px; 
+    color: var(--brand-orange); 
+    margin-bottom: 20px; 
+}
+
+.mvv-card h3 { 
+    color: var(--text-main); 
+    margin-bottom: 15px; 
+    font-size: 22px;
+}
+
+.mvv-card p { 
+    color: var(--text-muted); 
+    line-height: 1.6; 
+    font-size: 15px;
+}

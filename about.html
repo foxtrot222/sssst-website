@@ -8,7 +8,8 @@
     <link rel="icon" href="images/favicon.webp" type="image/webp" />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="stylesheet" href="styles.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="preload" as="image" href="images/general/1.webp" fetchpriority="high">
 </head>
 <body>
     <div id="navbar"></div>
@@ -24,7 +25,7 @@
             <div class="about-gallery">
                 <div class="about-slider">
                     <!-- We give it an ID to link it to the JS script -->
-                    <img id="general_slide" class="activity-slide" alt="Who We Are" style="opacity: 0;">
+                    <img id="general_slide" class="activity-slide" src="images/general/1.webp" alt="Who We Are" style="opacity: 1;" fetchpriority="high">
                 </div>
             </div>
             <div class="about-text">

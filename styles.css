@@ -293,17 +293,61 @@ body {
 .stat-box p { font-size: 18px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; opacity: 0.9; }
 
 /* --- Home Page: Awards --- */
-.awards-section { padding: 70px 20px; text-align: center; background-color: var(--bg-white); }
-.awards-section h2 { font-size: 36px; color: var(--brand-orange); margin-bottom: 40px; }
-.awards-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; max-width: 1080px; margin: 0 auto 40px auto; }
-.award-placeholder {
-    flex: 1; min-width: 250px; max-width: 320px; aspect-ratio: 4 / 3;
-    background-color: var(--bg-white); border-radius: 10px;
-    position: relative; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden;
+.awards-section { 
+    padding: 70px 20px; 
+    text-align: center; 
+    background-color: var(--bg-white); 
 }
-.award-placeholder img { width: 100%; height: 100%; object-fit: contain; z-index: 2; }
-.awards-description { font-size: 18px; color: var(--text-muted); line-height: 1.6; max-width: 800px; margin: 0 auto; }
+
+.awards-section h2 { 
+    font-size: 36px; 
+    color: var(--brand-orange); 
+    margin-bottom: 40px; 
+}
+
+.awards-grid { 
+    display: flex; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+    gap: 30px; 
+    max-width: 1100px; 
+    margin: 0 auto; 
+}
+
+/* Constrains width so items don't stretch randomly */
+.award-item {
+    flex: 0 1 320px; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.award-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background-color: var(--bg-white); 
+    border-radius: 10px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    overflow: hidden;
+}
+
+.award-placeholder img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+}
+
+.award-caption {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+    text-align: center;
+}
 
 /* --- About Us Page --- */
 

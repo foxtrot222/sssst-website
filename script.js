@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // About page sliders
+	createActivitySlider("general_slide", "general");
         createActivitySlider("environment_slide", "environment");
         createActivitySlider("health_slide", "health_yoga");
         createActivitySlider("women_slide", "women_empowerment");
@@ -128,12 +129,12 @@ function findImages() {
     if (!imgElement) return;
 
     let img = new Image();
-    img.src = `images/${checkIndex}.webp`; // Strictly forces .webp lookups
+    // UPDATE THIS LINE TO POINT TO THE NEW GALLERY FOLDER
+    img.src = `images/gallery/${checkIndex}.webp`; 
 
     img.onload = function() {
         images.push(img.src); 
         
-        // Render the initial image immediately upon discovery
         if (images.length === 1) {
             imgElement.src = images[0];
             imgElement.style.opacity = 1; 
@@ -144,11 +145,10 @@ function findImages() {
     };
 
     img.onerror = function() {
-        // If a .webp fails to load, the sequence is over. Start the slider.
         if (images.length > 0) {
             startAutoSlide(); 
         } else {
-            console.warn("Asset Discovery: No sequentially numbered .webp assets resolved in /images.");
+            console.warn("Asset Discovery: No sequentially numbered .webp assets resolved in /images/gallery.");
         }
     };
 }

@@ -1,73 +1,74 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Asynchronously load all shared UI components
     Promise.all([
-        fetch("navbar.html").then(response => response.text()),
-        fetch("donate-modal.html").then(response => response.text()),
-        fetch("footer.html").then(response => response.text())
-    ])
-    .then(([navbarData, modalData, footerData]) => {
-        // Inject components into their respective DOM insertion points
-        document.getElementById("navbar").innerHTML = navbarData;
-        document.getElementById("donate-modal").innerHTML = modalData;
-        document.getElementById("footer").innerHTML = footerData;
+            fetch("navbar.html").then(response => response.text()),
+            fetch("donate-modal.html").then(response => response.text()),
+            fetch("footer.html").then(response => response.text())
+        ])
+        .then(([navbarData, modalData, footerData]) => {
+            // Inject components into their respective DOM insertion points
+            document.getElementById("navbar").innerHTML = navbarData;
+            document.getElementById("donate-modal").innerHTML = modalData;
+            document.getElementById("footer").innerHTML = footerData;
 
-        // Initialize core component controllers
-        setupDonateModal();
-        highlightCurrentPage();
-        setupMobileMenu();
-        function setupMobileMenu() {
+            // Initialize core component controllers
+            setupDonateModal();
+            highlightCurrentPage();
+            setupMobileMenu();
 
-            const menuToggle = document.getElementById("menuToggle");
-            const navbarLinks = document.getElementById("navbarLinks");
+            function setupMobileMenu() {
 
-            if (!menuToggle || !navbarLinks)
-                return;
+                const menuToggle = document.getElementById("menuToggle");
+                const navbarLinks = document.getElementById("navbarLinks");
 
-            menuToggle.addEventListener("click", () => {
+                if (!menuToggle || !navbarLinks)
+                    return;
 
-                navbarLinks.classList.toggle("active");
+                menuToggle.addEventListener("click", () => {
 
-                const icon = menuToggle.querySelector("i");
+                    navbarLinks.classList.toggle("active");
 
-                if (navbarLinks.classList.contains("active")) {
-                    icon.classList.remove("fa-bars");
-                    icon.classList.add("fa-times");
-                } else {
-                    icon.classList.remove("fa-times");
-                    icon.classList.add("fa-bars");
-                }
-            });
-        }
+                    const icon = menuToggle.querySelector("i");
 
-        // Initialize homepage-specific modules if elements exist in the DOM
-        if (document.querySelector('.counter')) {
-            startCounters();
-        }
-        if (document.getElementById("slide")) {
-            findImages();
-        }
+                    if (navbarLinks.classList.contains("active")) {
+                        icon.classList.remove("fa-bars");
+                        icon.classList.add("fa-times");
+                    } else {
+                        icon.classList.remove("fa-times");
+                        icon.classList.add("fa-bars");
+                    }
+                });
+            }
 
-        // About page sliders
-	createActivitySlider("general_slide", "general");
-        createActivitySlider("environment_slide", "environment");
-        createActivitySlider("health_slide", "health_yoga");
-        createActivitySlider("women_slide", "women_empowerment");
-        createActivitySlider("education_slide", "education");
-        createActivitySlider("child_protection_slide", "child_protection");
-        createActivitySlider("animal_rescue_slide", "animal_rescue");
-        createActivitySlider("hunger_slide", "hunger_drive");
-	createActivitySlider("others_slide", "others");
-    })
-    .catch(error => console.error("Error initializing application components:", error));
+            // Initialize homepage-specific modules if elements exist in the DOM
+            if (document.querySelector('.counter')) {
+                startCounters();
+            }
+            if (document.getElementById("slide")) {
+                findImages();
+            }
+
+            // About page sliders
+            createActivitySlider("general_slide", "general");
+            createActivitySlider("environment_slide", "environment");
+            createActivitySlider("health_slide", "health_yoga");
+            createActivitySlider("women_slide", "women_empowerment");
+            createActivitySlider("education_slide", "education");
+            createActivitySlider("child_protection_slide", "child_protection");
+            createActivitySlider("animal_rescue_slide", "animal_rescue");
+            createActivitySlider("hunger_slide", "hunger_drive");
+            createActivitySlider("others_slide", "others");
+        })
+        .catch(error => console.error("Error initializing application components:", error));
 });
 
 /**
  * Coordinates event listeners and state management for the Donation Modal.
  */
 function setupDonateModal() {
-    const donateBtn = document.getElementById("donateBtn"); 
-    const heroDonateBtn = document.getElementById("heroDonateBtn"); 
-    const footerDonateBtn = document.getElementById("footerDonateBtn"); 
+    const donateBtn = document.getElementById("donateBtn");
+    const heroDonateBtn = document.getElementById("heroDonateBtn");
+    const footerDonateBtn = document.getElementById("footerDonateBtn");
     const modal = document.getElementById("donationModal");
     const closeBtn = document.querySelector(".close-btn");
 
@@ -88,7 +89,7 @@ function setupDonateModal() {
     if (footerDonateBtn) footerDonateBtn.addEventListener("click", openModal);
 
     closeBtn.addEventListener("click", closeModal);
-    
+
     // Close modal window when clicking the background overlay
     window.addEventListener("click", (e) => {
         if (e.target === modal) {
@@ -120,7 +121,7 @@ let currentIndex = 0;
 let checkIndex = 1;
 let slideTimer;
 
-const slideDelay = 4000; 
+const slideDelay = 4000;
 
 /**
  * Recursively checks the assets directory for valid sequentially numbered .webp images.
@@ -131,23 +132,23 @@ function findImages() {
 
     let img = new Image();
     // UPDATE THIS LINE TO POINT TO THE NEW GALLERY FOLDER
-    img.src = `images/gallery/${checkIndex}.webp`; 
+    img.src = `images/gallery/${checkIndex}.webp`;
 
     img.onload = function() {
-        images.push(img.src); 
-        
+        images.push(img.src);
+
         if (images.length === 1) {
             imgElement.src = images[0];
-            imgElement.style.opacity = 1; 
+            imgElement.style.opacity = 1;
         }
 
-        checkIndex++;         
-        findImages();         
+        checkIndex++;
+        findImages();
     };
 
     img.onerror = function() {
         if (images.length > 0) {
-            startAutoSlide(); 
+            startAutoSlide();
         } else {
             console.warn("Asset Discovery: No sequentially numbered .webp assets resolved in /images/gallery.");
         }
@@ -159,7 +160,7 @@ function findImages() {
  */
 function changeSlide(direction) {
     const imgElement = document.getElementById("slide");
-    if (images.length === 0 || !imgElement) return; 
+    if (images.length === 0 || !imgElement) return;
 
     imgElement.style.opacity = 0;
 
@@ -181,7 +182,7 @@ function changeSlide(direction) {
 
 function startAutoSlide() {
     slideTimer = setInterval(() => {
-        changeSlide(1); 
+        changeSlide(1);
     }, slideDelay);
 }
 
@@ -251,32 +252,34 @@ function createActivitySlider(imageId, folderName) {
  */
 function startCounters() {
     const counters = document.querySelectorAll('.counter');
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const counter = entry.target;
                 const target = +counter.getAttribute("data-target");
-                
-                const duration = 2000; 
-                const increment = target / (duration / 16); 
+
+                const duration = 2000;
+                const increment = target / (duration / 16);
                 let currentCount = 0;
-                
+
                 const updateCounter = () => {
                     currentCount += increment;
                     if (currentCount < target) {
                         counter.innerText = Math.ceil(currentCount);
                         requestAnimationFrame(updateCounter);
                     } else {
-                        counter.innerText = target; 
+                        counter.innerText = target;
                     }
                 };
-                
+
                 updateCounter();
                 observer.unobserve(counter);
             }
         });
-    }, { threshold: 0.5 });
+    }, {
+        threshold: 0.5
+    });
 
     counters.forEach(counter => observer.observe(counter));
 }

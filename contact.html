@@ -89,7 +89,28 @@
                </div>
             </div>
             <div class="contact-map">
-               <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d463.3088225584617!2d72.99221569138071!3d21.723274877197294!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be0270045296021%3A0xf9cffcfa4d034e27!2sSaryu%20Township!5e0!3m2!1sen!2sin!4v1782033031947!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Trust Location Map"></iframe>
+
+               <!-- Loading Placeholder -->
+               <div class="map-placeholder" id="mapSkeleton">
+                  <i class="fas fa-map-marked-alt map-icon"></i>
+
+                  <div class="map-loader"></div>
+
+                  <h3>Loading Google Maps...</h3>
+
+                  <p>Fetching location and map tiles...</p>
+               </div>
+
+               <!-- Google Map -->
+               <iframe
+                  id="googleMap"
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d463.3088225584617!2d72.99221569138071!3d21.723274877197294!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be0270045296021%3A0xf9cffcfa4d034e27!2sSaryu%20Township!5e0!3m2!1sen!2sin!4v1782033031947!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Trust Location Map"
+                  loading="lazy"
+                  allowfullscreen
+                  referrerpolicy="no-referrer-when-downgrade"
+                  onload="hideMapSkeleton()">
+               </iframe>
+
             </div>
          </section>
       </main>

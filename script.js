@@ -283,3 +283,22 @@ function startCounters() {
 
     counters.forEach(counter => observer.observe(counter));
 }
+
+function hideMapSkeleton() {
+
+    console.log("Google Map Loaded");
+
+    const placeholder = document.getElementById("mapSkeleton");
+
+    if (!placeholder) {
+        console.log("Placeholder not found");
+        return;
+    }
+
+    placeholder.style.opacity = "0";
+    placeholder.style.pointerEvents = "none";
+
+    setTimeout(() => {
+        placeholder.remove();
+    }, 400);
+}

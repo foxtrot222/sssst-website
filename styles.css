@@ -885,13 +885,92 @@
  .contact-item a:hover {
      text-decoration: underline;
 }
- .contact-map {
-     flex: 1.5;
-     min-width: 300px;
-     border-radius: 10px;
-     overflow: hidden;
-     min-height: 350px;
+
+/* =====================================
+   MAP CONTAINER
+===================================== */
+
+.contact-map{
+    position: relative;
+    flex: 1.5;
+    min-width: 320px;
+    height: 420px;
+    overflow: hidden;
+    border-radius: 12px;
 }
+
+.contact-map iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+/* =====================================
+   LOADING PLACEHOLDER
+===================================== */
+
+.map-placeholder{
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+
+    background:#f8f9fa;
+    z-index:5;
+
+    transition:opacity .4s ease;
+}
+
+/* Loading Spinner */
+
+.map-loader{
+
+    width:60px;
+    height:60px;
+
+    border:6px solid #e5e5e5;
+    border-top:6px solid var(--brand-orange);
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+}
+
+.map-icon{
+    font-size:48px;
+    color:var(--brand-orange);
+}
+
+@keyframes spin{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+.map-placeholder h3{
+
+    margin:0;
+    color:var(--brand-orange);
+    font-size:22px;
+}
+
+.map-placeholder p{
+
+    margin:0;
+    color:#666;
+    font-size:15px;
+}
+
 /* ========================================================================== MOBILE RESPONSIVE DESIGN ========================================================================== */
 /* Hamburger Icon - Hidden by Default */
  .menu-toggle {

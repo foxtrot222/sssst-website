@@ -283,3 +283,17 @@ function startCounters() {
 
     counters.forEach(counter => observer.observe(counter));
 }
+
+function hideMapSkeleton() {
+
+    const skeleton = document.getElementById("mapSkeleton");
+
+    if (skeleton) {
+
+        skeleton.style.opacity = "0";
+
+        setTimeout(() => {
+            skeleton.remove();
+        }, 300);
+    }
+}

@@ -886,9 +886,10 @@
      text-decoration: underline;
 }
 
-/* ==========================
+/* =====================================
    MAP CONTAINER
-========================== */
+===================================== */
+
 .contact-map{
     position: relative;
     flex: 1.5;
@@ -898,51 +899,76 @@
     border-radius: 12px;
 }
 
-/* ==========================
-   GOOGLE MAP
-========================== */
-
 .contact-map iframe{
     width:100%;
     height:100%;
     border:none;
-    display:block;
 }
 
-/* ==========================
-   SKELETON
-========================== */
+/* =====================================
+   LOADING PLACEHOLDER
+===================================== */
 
-.map-skeleton{
+.map-placeholder{
     position:absolute;
     inset:0;
 
-    background:linear-gradient(
-        90deg,
-        #eeeeee 25%,
-        #f7f7f7 50%,
-        #eeeeee 75%
-    );
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
 
-    background-size:200% 100%;
-
-    animation:mapLoading 1.4s infinite;
-
+    background:#f8f9fa;
     z-index:5;
+
+    transition:opacity .4s ease;
 }
 
-/* Shimmer Effect */
+/* Loading Spinner */
 
-@keyframes mapLoading{
+.map-loader{
 
-    0%{
-        background-position:200% 0;
+    width:60px;
+    height:60px;
+
+    border:6px solid #e5e5e5;
+    border-top:6px solid var(--brand-orange);
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+}
+
+.map-icon{
+    font-size:48px;
+    color:var(--brand-orange);
+}
+
+@keyframes spin{
+
+    from{
+        transform:rotate(0deg);
     }
 
-    100%{
-        background-position:-200% 0;
+    to{
+        transform:rotate(360deg);
     }
 
+}
+
+.map-placeholder h3{
+
+    margin:0;
+    color:var(--brand-orange);
+    font-size:22px;
+}
+
+.map-placeholder p{
+
+    margin:0;
+    color:#666;
+    font-size:15px;
 }
 
 /* ========================================================================== MOBILE RESPONSIVE DESIGN ========================================================================== */

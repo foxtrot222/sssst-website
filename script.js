@@ -286,14 +286,19 @@ function startCounters() {
 
 function hideMapSkeleton() {
 
-    const skeleton = document.getElementById("mapSkeleton");
+    console.log("Google Map Loaded");
 
-    if (skeleton) {
+    const placeholder = document.getElementById("mapSkeleton");
 
-        skeleton.style.opacity = "0";
-
-        setTimeout(() => {
-            skeleton.remove();
-        }, 300);
+    if (!placeholder) {
+        console.log("Placeholder not found");
+        return;
     }
+
+    placeholder.style.opacity = "0";
+    placeholder.style.pointerEvents = "none";
+
+    setTimeout(() => {
+        placeholder.remove();
+    }, 400);
 }
